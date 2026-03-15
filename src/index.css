@@ -41,3 +41,14 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   }
 }
+
+.ai-search-border {
+  background: linear-gradient(135deg, #8b5cf6, #6366f1, #3b82f6, #8b5cf6);
+  background-size: 300% 300%;
+  animation: ai-glow 4s ease-in-out infinite;
+}
+
+@keyframes ai-glow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}

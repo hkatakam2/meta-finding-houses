@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import BottomNav from './components/BottomNav'
 import Home from './pages/Home'
+import Discover from './pages/Discover'
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -15,7 +16,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/discover" element={<Placeholder title="Discover" />} />
+        <Route path="/discover" element={<Discover />} />
         <Route path="/search" element={<Placeholder title="Search" />} />
         <Route path="/saved" element={<Placeholder title="Saved" />} />
         <Route path="/messages" element={<Placeholder title="Messages" />} />
