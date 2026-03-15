@@ -233,10 +233,10 @@ function CompareView({ items }: { items: Listing[] }) {
   return (
     <div className="bg-card rounded-xl border border-border overflow-hidden">
       {/* Column headers */}
-      <div className="grid grid-cols-[100px_1fr_1fr_1fr] border-b border-border">
-        <div className="px-2 py-2.5" />
+      <div className="grid grid-cols-4 border-b border-border">
+        <div className="px-1.5 py-2.5" />
         {items.map((l) => (
-          <div key={l.id} className="px-2 py-2.5 text-center">
+          <div key={l.id} className="px-1.5 py-2.5 text-center">
             <div
               className="w-full h-12 rounded-lg mb-1.5"
               style={{ background: l.gradient }}
@@ -254,17 +254,17 @@ function CompareView({ items }: { items: Listing[] }) {
         return (
           <div
             key={ri}
-            className={`grid grid-cols-[100px_1fr_1fr_1fr] ${
+            className={`grid grid-cols-4 ${
               ri < rows.length - 1 ? 'border-b border-border' : ''
             }`}
           >
-            <div className="px-2 py-2.5 text-xs font-medium text-text-secondary flex items-center">
+            <div className="px-1.5 py-2.5 text-[11px] font-medium text-text-secondary flex items-center">
               {row.label}
             </div>
             {row.values.map((val, vi) => (
               <div
                 key={vi}
-                className={`px-2 py-2.5 text-center text-xs font-semibold flex items-center justify-center ${
+                className={`px-1 py-2.5 text-center text-xs font-semibold flex items-center justify-center ${
                   vi === bestIdx ? 'text-accent-green' : 'text-text'
                 }`}
               >

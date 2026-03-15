@@ -291,9 +291,10 @@ export default function Neighborhood() {
   const navigate = useNavigate()
   const [showMessenger, setShowMessenger] = useState(false)
   const [showResidentQA, setShowResidentQA] = useState(false)
+  const [showToast, setShowToast] = useState(false)
 
   return (
-    <div className="min-h-screen bg-bg pb-20">
+    <div className="min-h-screen bg-bg pb-36">
       {/* Top bar */}
       <header className="bg-card px-4 pt-12 pb-3 border-b border-border flex items-center gap-3">
         <button
@@ -404,15 +405,30 @@ export default function Neighborhood() {
           </div>
         </div>
 
-        {/* Save to HomeBoard */}
+      </div>
+
+      {/* Sticky footer button */}
+      <div className="fixed bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[390px] z-40 px-4 py-3 bg-card border-t border-border">
         <button
-          onClick={() => navigate('/homeboard')}
+          onClick={() => {
+            setShowToast(true)
+            setTimeout(() => navigate('/homeboard'), 2500)
+          }}
           className="w-full py-3.5 rounded-xl bg-accent-green text-white text-sm font-semibold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
         >
           <Bookmark size={18} />
           Save to HomeBoard
         </button>
       </div>
+
+      {/* Toast notification */}
+      {showToast && (
+        <div className="fixed bottom-36 left-1/2 -translate-x-1/2 z-50">
+          <div className="toast bg-text text-white text-sm font-medium px-5 py-3 rounded-full shadow-lg whitespace-nowrap">
+            Saved to 'Our First Home 🏠'
+          </div>
+        </div>
+      )}
 
       {showMessenger && <MessengerModal onClose={() => setShowMessenger(false)} />}
       {showResidentQA && <ResidentQAModal onClose={() => setShowResidentQA(false)} />}
