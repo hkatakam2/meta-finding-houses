@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import BottomNav from './components/BottomNav'
 import Home from './pages/Home'
 import Discover from './pages/Discover'
+import Neighborhood from './pages/Neighborhood'
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/discover" element={<Discover />} />
+        <Route path="/neighborhood" element={<Neighborhood />} />
         <Route path="/search" element={<Placeholder title="Search" />} />
         <Route path="/saved" element={<Placeholder title="Saved" />} />
         <Route path="/messages" element={<Placeholder title="Messages" />} />
