@@ -60,6 +60,145 @@ function StatPill({ text }: { text: string }) {
   )
 }
 
+function ResidentQAModal({ onClose }: { onClose: () => void }) {
+  const [message, setMessage] = useState('')
+  const [messages, setMessages] = useState<{ text: string; fromMe: boolean }[]>([])
+  const [showIntro, setShowIntro] = useState(true)
+
+  const suggestedQuestions = [
+    "How's the noise level at night?",
+    "Are the schools really as good as the ratings say?",
+    "What's the parking situation like?",
+    "How are the neighbors?",
+  ]
+
+  const pickQuestion = (q: string) => {
+    setShowIntro(false)
+    setMessages(prev => [...prev, { text: q, fromMe: true }])
+    setMessage('')
+    setTimeout(() => {
+      const replies: Record<string, string> = {
+        "How's the noise level at night?": "Super quiet after 9pm honestly. Occasionally you'll hear a dog but that's about it. Great for sleeping!",
+        "Are the schools really as good as the ratings say?": "Yes! Lincoln Elementary is fantastic. My kids love it — the teachers really care. Middle school is solid too.",
+        "What's the parking situation like?": "Street parking is easy, most houses have driveways. Never had an issue finding a spot for guests.",
+        "How are the neighbors?": "Really friendly! We do a block party every fall and people look out for each other. It's a welcoming community.",
+      }
+      setMessages(prev => [...prev, {
+        text: replies[q] || "That's a great question! I've been here 3 years and really love the area. Happy to share more details.",
+        fromMe: false,
+      }])
+    }, 1500)
+  }
+
+  const sendMessage = () => {
+    if (!message.trim()) return
+    setShowIntro(false)
+    setMessages(prev => [...prev, { text: message.trim(), fromMe: true }])
+    setMessage('')
+    setTimeout(() => {
+      setMessages(prev => [...prev, {
+        text: "Good question! From my experience living here, I'd say it's been really positive. Let me know if you want more specifics!",
+        fromMe: false,
+      }])
+    }, 1500)
+  }
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-end justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/40" />
+      <div
+        className="relative w-full max-w-[390px] bg-card rounded-t-2xl flex flex-col"
+        style={{ height: '75dvh' }}
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
+          <div className="relative shrink-0">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center text-white text-sm font-bold">
+              J
+            </div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center">
+              <svg width="7" height="7" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 9L2 6.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-1.5">
+              <p className="text-sm font-semibold text-text">James R.</p>
+              <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded-full">Verified Resident</span>
+            </div>
+            <p className="text-xs text-text-secondary">Lives in Willow Creek · 4 years</p>
+          </div>
+          <button onClick={onClose} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover">
+            <X size={20} className="text-text-secondary" />
+          </button>
+        </div>
+
+        {/* Messages area */}
+        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5">
+          {showIntro && messages.length === 0 && (
+            <div className="text-center py-4 space-y-4">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center text-white text-2xl font-bold mx-auto">
+                J
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-text">James R.</p>
+                <p className="text-xs text-text-secondary mt-0.5">Verified resident since 2022</p>
+              </div>
+              <p className="text-xs text-text-secondary leading-relaxed px-4">
+                Ask James anything about living in Willow Creek. Your identity stays private until you choose to share it.
+              </p>
+              <div className="space-y-2 pt-1">
+                <p className="text-xs font-medium text-text-secondary uppercase tracking-wide">Suggested questions</p>
+                {suggestedQuestions.map((q, i) => (
+                  <button
+                    key={i}
+                    onClick={() => pickQuestion(q)}
+                    className="w-full text-left px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-text hover:border-primary hover:text-primary transition-colors"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {messages.map((msg, i) => (
+            <div key={i} className={`flex ${msg.fromMe ? 'justify-end' : 'justify-start'}`}>
+              <div
+                className={`max-w-[75%] px-3.5 py-2 rounded-2xl text-sm leading-relaxed ${
+                  msg.fromMe
+                    ? 'bg-primary text-white rounded-br-md'
+                    : 'bg-border text-text rounded-bl-md'
+                }`}
+              >
+                {msg.text}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Input */}
+        <div className="px-3 py-2.5 border-t border-border flex items-center gap-2">
+          <input
+            type="text"
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && sendMessage()}
+            placeholder="Ask about this neighborhood..."
+            className="flex-1 bg-border rounded-full px-4 py-2 text-sm text-text outline-none placeholder:text-text-secondary"
+          />
+          <button
+            onClick={sendMessage}
+            className="w-9 h-9 rounded-full bg-primary flex items-center justify-center active:scale-95 transition-transform"
+          >
+            <Send size={16} className="text-white ml-0.5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function MessengerModal({ onClose }: { onClose: () => void }) {
   const suggestedMessage = "Hey Maya! I'm looking at a house near you on Willow Creek Dr. What's the neighborhood like?"
   const [message, setMessage] = useState(suggestedMessage)
@@ -151,6 +290,7 @@ const communityActivity = [
 export default function Neighborhood() {
   const navigate = useNavigate()
   const [showMessenger, setShowMessenger] = useState(false)
+  const [showResidentQA, setShowResidentQA] = useState(false)
 
   return (
     <div className="min-h-screen bg-bg pb-20">
@@ -240,7 +380,10 @@ export default function Neighborhood() {
         </div>
 
         {/* Ask a Neighbor */}
-        <button className="w-full py-3 rounded-xl border-2 border-primary text-primary text-sm font-semibold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform bg-card">
+        <button
+          onClick={() => setShowResidentQA(true)}
+          className="w-full py-3 rounded-xl border-2 border-primary text-primary text-sm font-semibold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform bg-card"
+        >
           <MessageCircle size={18} />
           Ask a verified resident about this neighborhood
         </button>
@@ -263,6 +406,7 @@ export default function Neighborhood() {
       </div>
 
       {showMessenger && <MessengerModal onClose={() => setShowMessenger(false)} />}
+      {showResidentQA && <ResidentQAModal onClose={() => setShowResidentQA(false)} />}
     </div>
   )
 }
