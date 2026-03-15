@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, Sparkles, MessageCircle, X, Send } from 'lucide-react'
+import { ArrowLeft, Sparkles, MessageCircle, X, Send, Bookmark } from 'lucide-react'
 
 function ScoreBadge({ score }: { score: number }) {
   const [currentScore, setCurrentScore] = useState(0)
@@ -403,6 +403,15 @@ export default function Neighborhood() {
             ))}
           </div>
         </div>
+
+        {/* Save to HomeBoard */}
+        <button
+          onClick={() => navigate('/homeboard')}
+          className="w-full py-3.5 rounded-xl bg-accent-green text-white text-sm font-semibold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+        >
+          <Bookmark size={18} />
+          Save to HomeBoard
+        </button>
       </div>
 
       {showMessenger && <MessengerModal onClose={() => setShowMessenger(false)} />}
