@@ -1,73 +1,95 @@
-# React + TypeScript + Vite
+# Meta Finding Houses
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for discovering, comparing, and saving homes. Browse listings, explore neighborhoods, and manage your favorite properties with an intuitive interface.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Home Discovery** - Browse available home listings with detailed information
+- **Neighborhood Insights** - Explore neighborhood details and community activity
+- **HomeBoard** - Save and compare your favorite properties side-by-side
+- **Verified Q&A** - Access questions and answers from verified residents
+- **Responsive Design** - Optimized for mobile and desktop devices
+- **Smooth Transitions** - Page transitions and skeleton loaders for a polished UX
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** 18.3 - UI library
+- **TypeScript** - Type-safe development
+- **Vite** 6.0 - Fast build tool with HMR
+- **React Router** - Client-side routing
+- **Tailwind CSS** 4.0 - Utility-first styling
+- **Lucide React** - Icon library
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (v18 or higher)
+- npm or yarn
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Run the development server with hot module replacement:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+The application will be available at `http://localhost:5173`
+
+### Build
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+### Preview
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+### Linting
+
+Check code quality:
+
+```bash
+npm run lint
+```
+
+## Project Structure
+
+```
+src/
+├── pages/
+│   ├── Home.tsx          - Home listings page
+│   ├── Discover.tsx      - Property discovery
+│   ├── Neighborhood.tsx  - Neighborhood information
+│   └── HomeBoard.tsx     - Saved properties comparison
+├── components/
+│   ├── BottomNav.tsx     - Navigation bar
+│   ├── PageTransition.tsx - Page transition effects
+│   └── SkeletonLoader.tsx - Loading skeleton UI
+└── App.tsx               - Main application component
+```
+
+## Available Routes
+
+- `/` - Home page with featured listings
+- `/discover` - Property discovery page
+- `/neighborhood` - Neighborhood explorer
+- `/homeboard` - Saved homes comparison
+- `/search` - Search functionality
+- `/saved` - Saved properties
+- `/messages` - Messaging system
+- `/profile` - User profile
